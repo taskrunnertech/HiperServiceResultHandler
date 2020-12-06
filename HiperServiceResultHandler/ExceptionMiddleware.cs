@@ -44,6 +44,7 @@ namespace HiperServiceResultHandler
             return context.Response.WriteAsync(
                 new ApiResultMessage
                 {
+                    IsSuccessful = false,
                     Data = null,
                     UserMessage = exc.UserMessage,
                     UserMessageCode = exc.UserMessageCode,
@@ -60,6 +61,7 @@ namespace HiperServiceResultHandler
             return context.Response.WriteAsync(
                 new ApiResultMessage
                 {
+                    IsSuccessful = false,
                     Data = null,
                     UserMessage = null,
                     UserMessageCode = null,

@@ -8,7 +8,7 @@
     <PackageProjectUrl>http://taskrunnertech.co.uk</PackageProjectUrl>
     <RepositoryUrl>https://github.com/taskrunnertech/HiperServiceResultHandler</RepositoryUrl>
     <Description>https://raw.githubusercontent.com/taskrunnertech/HiperServiceResultHandler/main/README.md</Description>
-    <Version>0.0.2</Version>
+    <Version>1.0.0</Version>
     <Copyright />
   </PropertyGroup>
 
