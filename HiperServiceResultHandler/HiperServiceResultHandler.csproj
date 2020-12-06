@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+
+    <Authors>Farshid Mirza</Authors>
+    <Company>Task Runner Technology</Company>
+    <PackageProjectUrl>http://taskrunnertech.co.uk</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/taskrunnertech/HiperServiceResultHandler</RepositoryUrl>
+    <Description>https://raw.githubusercontent.com/taskrunnertech/HiperServiceResultHandler/main/README.md</Description>
+    <Version>0.0.1</Version>
+    <Copyright />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+</Project>
