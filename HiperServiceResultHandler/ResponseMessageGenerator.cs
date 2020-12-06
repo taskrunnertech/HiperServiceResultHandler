@@ -6,7 +6,8 @@ namespace HiperServiceResultHandler
 {
     public static class ResponseMessageGenerator
     {
-        public static OkObjectResult Result<T>(this ControllerBase controller, T data, string userMessage, string userMessageCode = null)
+
+        public static OkObjectResult Result<T>(this ControllerBase controller, T data, string userMessage = null, string userMessageCode = null)
         {
             return Result(data, userMessage, userMessageCode);
         }
@@ -14,12 +15,9 @@ namespace HiperServiceResultHandler
         {
             return Result(data, userMessage, userMessageCode);
         }
-        public static OkObjectResult Result<T>(T data, string userMessage, string userMessageCode = null, int? errorCode = null, string message = null, Exception exception = null)
-        {
-            return Result(data, userMessage, userMessageCode, errorCode, message, exception);
-        }
 
-        public static OkObjectResult Result(object data, string userMessage, string userMessageCode = null, int? errorCode = null, string message = null, Exception exception = null)
+
+        public static OkObjectResult Result(Object data, string userMessage, string userMessageCode = null, int? errorCode = null, string message = null, Exception exception = null)
         {
             var result = new ApiResultMessage
             {
@@ -28,7 +26,7 @@ namespace HiperServiceResultHandler
                 UserMessageCode = userMessageCode,
                 ErrorCode = errorCode ?? 0,
                 Message = message,
-                Exception = exception.ToString()
+                Exception = exception?.ToString()
 
             };
             if (errorCode.HasValue || !string.IsNullOrEmpty(message) || exception != null)

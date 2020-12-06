@@ -50,7 +50,7 @@ namespace HiperServiceResultHandler
 
     public static class ConfigureExceptionHandler
     {
-        public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
+        public static void ConfigureServiceExceptionHandler(this IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionMiddleware>();
         }
