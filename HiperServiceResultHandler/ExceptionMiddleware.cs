@@ -33,9 +33,10 @@ namespace HiperServiceResultHandler
             catch (Exception exc)
             {
                 _logger.LogError(505, exc, "Service Error!");
-                throw;
+                await HandleGeneralExceptionAsync(httpContext, exc);
             }
         }
+
         private Task HandleExceptionAsync(HttpContext context, ServiceException exc)
         {
             context.Response.ContentType = "application/json";
@@ -47,6 +48,22 @@ namespace HiperServiceResultHandler
                     UserMessage = exc.UserMessage,
                     UserMessageCode = exc.UserMessageCode,
                     ErrorCode = exc.ErrorCode,
+                    Message = exc.Message,
+                    Exception = exc.ToString()
+                }.ToString()
+                );
+        }
+        private Task HandleGeneralExceptionAsync(HttpContext context, Exception exc)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.OK;
+            return context.Response.WriteAsync(
+                new ApiResultMessage
+                {
+                    Data = null,
+                    UserMessage = null,
+                    UserMessageCode = null,
+                    ErrorCode = 500,
                     Message = exc.Message,
                     Exception = exc.ToString()
                 }.ToString()
