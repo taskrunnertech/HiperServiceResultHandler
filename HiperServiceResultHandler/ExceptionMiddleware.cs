@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -24,13 +25,18 @@ namespace HiperServiceResultHandler
                 await _next(httpContext);
             }
             //TODO: we should handle custom exceptions here
-            catch (ServiceExceptions exc)
+            catch (ServiceException exc)
             {
                 _logger.LogError(exc.ErrorCode, exc, $"User Message:{exc.UserMessage} | Message: {exc.Message}");
                 await HandleExceptionAsync(httpContext, exc);
             }
+            catch (Exception exc)
+            {
+                _logger.LogError(505, exc, "Service Error!");
+                throw;
+            }
         }
-        private Task HandleExceptionAsync(HttpContext context, ServiceExceptions exc)
+        private Task HandleExceptionAsync(HttpContext context, ServiceException exc)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.OK;
