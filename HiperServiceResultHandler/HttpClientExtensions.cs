@@ -27,11 +27,13 @@ namespace HiperServiceResultHandler
 
         private static readonly ProductInfoHeaderValue HiperUserAgentHeader;
 
-        private static readonly JsonSerializerSettings DefaultSerializerSettings = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings DefaultSerializerSettings = new JsonSerializerSettings
         {
-            ContractResolver = new DefaultContractResolver { NamingStrategy = new CamelCaseNamingStrategy() },
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
             Formatting = Formatting.Indented,
         };
+
+        public static JsonSerializerSettings SerializerSettings { get; set; } = DefaultSerializerSettings;
 
         private static readonly HttpMethod PatchMethod = new HttpMethod("PATCH");
 
@@ -115,7 +117,7 @@ namespace HiperServiceResultHandler
 
         private static HttpContent CreateRequestContent(object data)
         {
-            var dataAsString = data == null ? "{}" : JsonConvert.SerializeObject(data, DefaultSerializerSettings);
+            var dataAsString = data == null ? "{}" : JsonConvert.SerializeObject(data, SerializerSettings);
 
             var content = new StringContent(dataAsString);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
