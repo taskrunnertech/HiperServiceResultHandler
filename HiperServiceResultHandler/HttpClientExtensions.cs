@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -148,9 +149,17 @@ namespace HiperServiceResultHandler
         /// <typeparam name="T">Object class to deserialize.</typeparam>
         public static async Task<T> ReadAsJsonAsync<T>(this HttpContent content)
         {
-            // TODO: do stream deserialization
-            var dataAsString = await content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(dataAsString);
+            using (var stream = await content.ReadAsStreamAsync())
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    using (var jsonReader = new JsonTextReader(reader))
+                    {
+                        var serializer = JsonSerializer.Create(SerializerSettings);
+                        return serializer.Deserialize<T>(jsonReader);
+                    }
+                }
+            }
         }
     }
 }
